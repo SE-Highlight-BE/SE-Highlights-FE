@@ -51,7 +51,7 @@ const Login = (props) => {
         <input
           type="text"
           className={style.input}
-          placeholder="이메일"
+          placeholder="이메"
           onChange={onEmailHandler}
           required
         />
