@@ -1,20 +1,19 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import cookies from "react-cookies";
 import style from "../style/login.module.css";
 
 const Login = (props) => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState();
+  const [userName, setUserName] = useState();
   const [password, setPassword] = useState();
 
-  const onEmailHandler = (event) => {
-    console.log(event.target.value);
-    setEmail(event);
+  const onUserNameHandler = (event) => {
+    setUserName(event.target.value);
   };
 
   const onPasswordHandler = (event) => {
-    console.log(event.target.value);
     setPassword(event.target.value);
   };
   const onSignupHandler = (event) => {
@@ -23,23 +22,39 @@ const Login = (props) => {
 
   const onLoginhandler = () => {
     console.log("login clicked!");
-    // axios.get("https://swapi.dev/api/people/1"),
-    //   {
-    //     name,
-    //     gender,
-    //   } //
-    //     .then((data) => {
-    //       console.log(data);
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     });
-    axios({
-      method: "get",
-      url: "https://swapi.dev/api/people/1",
-    }).then((data) => {
-      console.log(data.data.name);
-    });
+    console.log(userName);
+    console.log(password);
+    axios
+      .post(
+        "http://localhost:3001/auth/signIn",
+        {
+          userName: userName,
+          userPwd: password,
+        }
+        // { withCredentials: true }
+      )
+      .then((data) => {
+        // cookie 저장
+        // const expires = new Date();
+        // expires.setHours(expires.getHours() + 1);
+
+        // cookies.save("userid", userName, {
+        //   path: "/",
+        //   expires,
+        // });
+        console.log(data.data);
+        if (data.data.error) {
+          alert(`${data.data.error}`);
+        } else {
+          alert(`${data.data.msg}`);
+
+          // 로그인 성공 후 홈 화면으로
+          navigate("/homepage");
+        }
+      })
+      .catch((err) => {
+        alert("로그인 실패");
+      });
   };
   return (
     <div className={style.section}>
@@ -51,8 +66,8 @@ const Login = (props) => {
         <input
           type="text"
           className={style.input}
-          placeholder="이메"
-          onChange={onEmailHandler}
+          placeholder="아이디"
+          onChange={onUserNameHandler}
           required
         />
         <input

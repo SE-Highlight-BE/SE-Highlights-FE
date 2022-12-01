@@ -1,19 +1,20 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import style from "../style/signup.module.css";
 
 const Signup = (props) => {
   const navigate = useNavigate();
-  const [name, setName] = useState();
-  const [email, setEmail] = useState();
+  const [userName, setUserName] = useState();
+  const [nickName, setNickName] = useState();
   const [password, setPassword] = useState();
   const [passwordCheck, setPasswordCheck] = useState();
 
-  const onNameHandler = (event) => {
-    setName(event.target.value);
+  const onUserNameHandler = (event) => {
+    setUserName(event.target.value);
   };
-  const onEmailHandler = (event) => {
-    setEmail(event.target.value);
+  const onNickNameHandler = (event) => {
+    setNickName(event.target.value);
   };
 
   const onPasswordHandler = (event) => {
@@ -28,7 +29,28 @@ const Signup = (props) => {
     // 이메일이 중복되는지 확인 코드
     // 아이디 생성 코드
     if (password !== passwordCheck) {
-      alert("비밀번호 불일치");
+      alert("입력한 비밀번호가 일치하지 않습니다.");
+    } else {
+      console.log(userName);
+      console.log(nickName);
+      console.log(password);
+      axios
+        .post("http://localhost:3001/auth/signUp", {
+          userName: userName,
+          userNickName: nickName,
+          userPwd: password,
+          userPwdCheck: password,
+        })
+        .then((data) => {
+          alert(`${data.data.msg}`);
+          if (data.status === 201) {
+            navigate("/");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          alert("회원 가입 실패");
+        });
     }
   };
   const onCancleHandler = (event) => {
@@ -45,15 +67,15 @@ const Signup = (props) => {
         <input
           type="text"
           className={style.input}
-          placeholder="이름"
-          onChange={onNameHandler}
+          placeholder="아이디"
+          onChange={onUserNameHandler}
           required
         />
         <input
           type="text"
           className={style.input}
-          placeholder="이메일"
-          onChange={onEmailHandler}
+          placeholder="닉네임"
+          onChange={onNickNameHandler}
           required
         />
         <input
