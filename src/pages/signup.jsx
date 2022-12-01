@@ -41,21 +41,22 @@ const Signup = (props) => {
           <span>Sports </span>
           <span className={style.titlenow}>now</span>
         </div>
+
         <input
           type="text"
           className={style.input}
-          value={data.userName}
-          name="userName"
-          placeholder="이름"
+          placeholder="닉네임"
+          name="userNickName"
+          value={data.userNickName}
           onChange={onChange}
           required
         />
         <input
           type="text"
           className={style.input}
+          value={data.userName}
+          name="userName"
           placeholder="아이디"
-          name="userNickName"
-          value={data.userNickName}
           onChange={onChange}
           required
         />
