@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import style from "../style/login.module.css";
 
@@ -25,7 +25,9 @@ const Login = (props) => {
 
   const onLoginhandler = () => {
     axios
-      .post("http://localhost:3001/auth/signIn", inputs)
+      .post("http://localhost:3001/auth/signIn", inputs, {
+        withCredentials: true,
+      })
       .then((res) => {
         alert(res.data.msg);
         res.data.token && navigate("/homepage");
