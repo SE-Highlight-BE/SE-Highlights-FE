@@ -21,8 +21,9 @@ const Login = (props) => {
     navigate("/login/signup");
   };
 
-  const onLoginhandler = () => {
+  const onLoginhandler = async () => {
     console.log("login clicked!");
+    const response = await axios.post();
     // axios.get("https://swapi.dev/api/people/1"),
     //   {
     //     name,
@@ -51,7 +52,7 @@ const Login = (props) => {
         <input
           type="text"
           className={style.input}
-          placeholder="이메"
+          placeholder="이메일"
           onChange={onEmailHandler}
           required
         />
