@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import cookies from "react-cookies";
 import style from "../style/login.module.css";
 
 const Login = (props) => {
@@ -30,19 +29,10 @@ const Login = (props) => {
         {
           userName: userName,
           userPwd: password,
-        }
-        // { withCredentials: true }
+        },
+        { withCredentials: true }
       )
       .then((data) => {
-        // cookie 저장
-        // const expires = new Date();
-        // expires.setHours(expires.getHours() + 1);
-
-        // cookies.save("userid", userName, {
-        //   path: "/",
-        //   expires,
-        // });
-        console.log(data.data);
         if (data.data.error) {
           alert(`${data.data.error}`);
         } else {
