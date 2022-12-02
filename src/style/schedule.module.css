@@ -1,25 +1,46 @@
 .section {
-  min-height: 87vh;
+  min-height: 100vh;
   background-color: black;
   color: white;
 }
 .date {
   display: flex;
-  justify-content: space-evenly;
-  width: 100%;
-  border: double;
+  /* border: double; */
   border-color: #c6b7b7;
   border-right: none;
   border-left: none;
   border-top: none;
   padding: 1rem;
+  overflow: auto;
+  gap: 3rem;
 }
 label {
   font-size: 1rem;
   padding: 0.5rem;
   border: 2px solid transparent;
 }
-
+.dateForm {
+  display: flex;
+  /* justify-content: center; */
+  /* align-items: center; */
+  text-align: center;
+  padding: 0 1rem;
+}
+.dateForm:hover {
+  color: yellow;
+  transform: scale(1.1);
+  transition-duration: 0.2s;
+}
+.date {
+  -ms-overflow-style: none;
+}
+.date::-webkit-scrollbar {
+  display: none;
+}
+.activeDate {
+  color: yellow;
+  border-color: yellow;
+}
 .day {
   display: none;
 }
@@ -36,5 +57,19 @@ input:hover + label {
 .match {
   display: flex;
   flex-direction: column;
-  padding: 100px;
+  padding: 50px;
+}
+
+.text {
+  font-size: x-large;
+  text-align: center;
+}
+.img {
+  width: 300px;
+  height: 330px;
+}
+.noneContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

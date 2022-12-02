@@ -1,16 +1,21 @@
 .section {
-  padding: 3rem;
+  padding: 1rem;
 }
 .title {
   font-size: 3rem;
+  margin-bottom: 1rem;
+  text-decoration-line: underline;
+  text-underline-offset: 1rem;
+  margin-bottom: 3rem;
 }
 .detail {
   display: flex;
   justify-content: space-between;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
+  /* padding-top: 2rem; */
+  /* padding-bottom: 2rem; */
 }
-span {
-  width: 5rem;
+.column {
+  width: 10rem;
+  font-size: x-large;
   text-align: center;
 }
