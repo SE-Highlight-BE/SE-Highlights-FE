@@ -9,12 +9,20 @@ import Search from "./pages/search";
 import Signup from "./pages/signup";
 import Playvideo from "./pages/playvideo/playvideo";
 import { useUser } from "./stores/user";
+import { Cookies } from "react-cookie";
+import { useEffect } from "react";
+
 function App() {
-  const { login } = useUser();
+  const { login, setLogin } = useUser();
+  const cookies = new Cookies();
+  useEffect(() => {
+    if (cookies.get("userID")) {
+      setLogin(true);
+    }
+  }, []);
   return (
     <>
       <BrowserRouter>
-        {/* {cookies.load("userid") === undefined ? <div></div> : <NavigationBar />} */}
         {login && <NavigationBar />}
         <Routes>
           <Route path="/" exact element={<Login />}></Route>

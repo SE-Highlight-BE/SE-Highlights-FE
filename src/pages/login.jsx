@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import style from "../style/login.module.css";
 import { useUser } from "../stores/user";
+import { Cookies } from "react-cookie";
+
 const Login = (props) => {
   const navigate = useNavigate();
   const [inputs, setInputs] = useState({
@@ -10,7 +12,7 @@ const Login = (props) => {
     userPwd: "",
   });
   const data = inputs;
-  const { setLogin } = useUser();
+  const { setLogin, login } = useUser();
   const onChange = (e) => {
     const { value, name } = e.target;
     setInputs({
@@ -18,7 +20,12 @@ const Login = (props) => {
       [name]: value,
     });
   };
+  const cookies = new Cookies();
 
+  useEffect(() => {
+    if (cookies.get("userID")) setLogin(true);
+    if (login === true || cookies.get("userID")) navigate("/homepage");
+  }, []);
   const onSignupHandler = (event) => {
     navigate("/login/signup");
   };

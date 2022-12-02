@@ -24,6 +24,7 @@ label {
   /* justify-content: center; */
   /* align-items: center; */
   text-align: center;
+  padding: 0 1rem;
 }
 .dateForm:hover {
   color: yellow;
@@ -38,6 +39,7 @@ label {
 }
 .activeDate {
   color: yellow;
+  border-color: yellow;
 }
 .day {
   display: none;
