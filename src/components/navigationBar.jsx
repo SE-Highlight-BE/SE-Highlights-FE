@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import style from "../style/navigationBar.module.css";
 
@@ -18,10 +19,10 @@ const NavigationBar = (props) => {
   };
   return (
     <div className={style.section}>
-      <span className={style.logo}>
+      <div className={style.logo}>
         <span className={style.logo_front}>Sports </span>
         <span className={style.logo_back}>now</span>
-      </span>
+      </div>
       <span className={style.navbar} onClick={goToHomepage}>
         홈
       </span>

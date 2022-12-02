@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./app.css";
 import NavigationBar from "./components/navigationBar";
@@ -8,18 +7,20 @@ import Mypage from "./pages/mypage";
 import Schedule from "./pages/schedule/schedule";
 import Search from "./pages/search";
 import Signup from "./pages/signup";
+import Playvideo from "./pages/playvideo/playvideo";
 
 function App() {
-  const [isLogin, setIsLogin] = useState(true);
   return (
     <>
       <BrowserRouter>
-        {isLogin ? <NavigationBar /> : <div></div>}
+        {/* {cookies.load("userid") === undefined ? <div></div> : <NavigationBar />} */}
+        <NavigationBar />
         <Routes>
           <Route path="/" exact element={<Login />}></Route>
           <Route path="/login" exact element={<Login />}></Route>
           <Route path="/login/signup" exact element={<Signup />}></Route>
           <Route path="/homepage" exact element={<Homepage />}></Route>
+          <Route path="/playvideo" exact element={<Playvideo />}></Route>
           <Route path="/schedule" exact element={<Schedule />}></Route>
           <Route path="/search" exact element={<Search />}></Route>
           <Route path="/mypage" exact element={<Mypage />}></Route>
