@@ -1,96 +1,67 @@
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import style from "../../style/schedule.module.css";
 import Match from "./match";
+import axios from "axios";
+
+axios.defaults.withCredentials = true;
 
 const Schedule = (props) => {
   const now = new Date();
+  const year = now.getFullYear();
   const month = now.getMonth() + 1;
   const date = now.getDate();
   const day = now.getDay();
-  const [target, setTarget] = useState();
+  const lastDay = new Date(year, month, -1).getDate();
+  const [data, setData] = useState();
+  const [toggle, setToggle] = useState();
+  function getDayOfWeek(date) {
+    const week = ["일", "월", "화", "수", "목", "금", "토"];
 
-  // 경기 일정 local data
-  const temp_date1 = [
-    {
-      time: "02:00",
-      play: "A:B",
-      detail: "중계 종료",
-    },
-    {
-      time: "04:00",
-      play: "C:D",
-      detail: "중계 예약",
-    },
-  ];
-  const temp_date2 = [
-    {
-      time: "02:00",
-      play: "A:B",
-      detail: "중계 종료",
-    },
-    {
-      time: "04:00",
-      play: "C:D",
-      detail: "중계 예약",
-    },
-  ];
-  const league = [temp_date1, temp_date2];
+    const dayOfWeek = week[new Date(date).getDay()];
 
-  const transDay = (day) => {
-    switch (day) {
-      case 0:
-        return "일";
-      case 1:
-        return "월";
-      case 2:
-        return "화";
-      case 3:
-        return "수";
-      case 4:
-        return "목";
-      case 5:
-        return "금";
-      case 6:
-        return "토";
-    }
+    return dayOfWeek;
+  }
+  const onGetDate = (date) => {
+    axios
+      .get(`http://localhost:3001/schedule/date/${date}`)
+      .then((v) => setData(v.data))
+      .catch((e) => console.log(e));
   };
+  const addZero = (date) => (`${date}`.length === 1 ? `0${date}` : date);
+  const dateList = useMemo(() => {
+    const arr = Array.from({ length: lastDay }, (v, i) => i);
+    return arr.map((elem) => (
+      <div
+        className={style.dateForm}
+        onClick={() => {
+          onGetDate(`${addZero(month)}-${addZero(elem + 1)}`);
+          setToggle(elem);
+        }}
+      >
+        <label
+          className={`${style.date} ${elem === toggle ? style.activeDate : ""}`}
+        >{`${addZero(month)}.${addZero(elem + 1)} (${getDayOfWeek(
+          String(year) + "-" + String(month) + "-" + String(elem + 1)
+        )})`}</label>
+      </div>
+    ));
+  }, [toggle]);
 
-  const setValue = (event) => {
-    // target : 날짜(며칠인지)
-    setTarget(date + Number(event.target.id));
-  };
   return (
     <div className={style.section}>
-      <div className={style.date} onChange={setValue}>
-        <input type="radio" name="day" className={style.day} id="-2" />
-        <label htmlFor="-2">
-          {month}.{date - 2}({transDay(day - 2)})
-        </label>
-
-        <input type="radio" name="day" className={style.day} id="-1" />
-        <label htmlFor="-1">
-          {month}.{date - 1}({transDay(day - 1)})
-        </label>
-
-        <input type="radio" name="day" className={style.day} id="0" />
-        <label htmlFor="0">
-          {month}.{date}({transDay(day)})
-        </label>
-
-        <input type="radio" name="day" className={style.day} id="+1" />
-        <label htmlFor="+1">
-          {month}.{date + 1}({transDay(day + 1)})
-        </label>
-
-        <input type="radio" name="day" className={style.day} id="+2" />
-        <label htmlFor="+2">
-          {month}.{date + 2}({transDay(day + 2)})
-        </label>
-      </div>
+      <div className={style.date}>{dateList}</div>
       <div className={style.match}>
-        {league.map((element) => (
-          <Match game={element} />
-        ))}
+        {data && data.length !== 0 ? (
+          <Match data={data} />
+        ) : (
+          <div className={style.noneContainer}>
+            <div className={style.text}>등록된 정보가 없습니다.</div>
+            <img
+              className={style.img}
+              src={require("../../assets/x.png")}
+            ></img>
+          </div>
+        )}
       </div>
     </div>
   );
