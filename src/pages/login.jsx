@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import style from "../style/login.module.css";
-
+import { useUser } from "../stores/user";
 const Login = (props) => {
   const navigate = useNavigate();
   const [inputs, setInputs] = useState({
@@ -10,7 +10,7 @@ const Login = (props) => {
     userPwd: "",
   });
   const data = inputs;
-
+  const { setLogin } = useUser();
   const onChange = (e) => {
     const { value, name } = e.target;
     setInputs({
@@ -30,6 +30,7 @@ const Login = (props) => {
       })
       .then((res) => {
         alert(res.data.msg);
+        setLogin(true);
         res.data.token && navigate("/homepage");
       })
       .catch((e) => alert("회원가입 실패"));

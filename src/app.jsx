@@ -8,13 +8,14 @@ import Schedule from "./pages/schedule/schedule";
 import Search from "./pages/search";
 import Signup from "./pages/signup";
 import Playvideo from "./pages/playvideo/playvideo";
-
+import { useUser } from "./stores/user";
 function App() {
+  const { login } = useUser();
   return (
     <>
       <BrowserRouter>
         {/* {cookies.load("userid") === undefined ? <div></div> : <NavigationBar />} */}
-        <NavigationBar />
+        {login && <NavigationBar />}
         <Routes>
           <Route path="/" exact element={<Login />}></Route>
           <Route path="/login" exact element={<Login />}></Route>
