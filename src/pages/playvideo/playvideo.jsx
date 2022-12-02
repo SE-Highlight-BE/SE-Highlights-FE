@@ -144,7 +144,7 @@ const Playvideo = ({ videoID }) => {
         </div>
         <div className={style.datas}>
           {replys.map((element) => (
-            <Comment data={element} />
+            <Comment key={element.id} data={element} />
           ))}
         </div>
       </div>

@@ -1,0 +1,49 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: black;
+  color: rgb(195, 184, 183);
+  min-height: 88vh;
+}
+
+.searchbar {
+  margin-top: 2em;
+  display: flex;
+  align-items: center;
+}
+
+.searchbtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background-color: black;
+  color: rgb(195, 184, 183);
+  padding: 0;
+  width: 5vw;
+  height: 5vh;
+}
+
+.input {
+  width: 40vw;
+  height: 5vh;
+  font-size: 1.5em;
+  background-color: black;
+  padding: 0;
+  color: rgb(195, 184, 183);
+  border-top: none;
+  border-right: none;
+  border-left: none;
+}
+
+.input:focus {
+  outline: none;
+  animation-name: border-focus;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+.input::placeholder {
+  padding-left: 0.5em;
+}
