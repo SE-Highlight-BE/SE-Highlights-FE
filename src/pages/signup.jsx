@@ -2,7 +2,6 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import style from "../style/signup.module.css";
-import axios from "axios";
 const Signup = (props) => {
   const navigate = useNavigate();
   const [inputs, setInputs] = useState({
