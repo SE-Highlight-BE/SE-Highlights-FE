@@ -8,7 +8,6 @@ const Schedule = (props) => {
   const date = now.getDate();
   const day = now.getDay();
   const [target, setTarget] = useState();
-  let idx = 0;
 
   // 경기 일정 local data
   const temp_date1 = [
@@ -90,7 +89,7 @@ const Schedule = (props) => {
       </div>
       <div className={style.match}>
         {league.map((element) => (
-          <Match id={++idx} game={element} />
+          <Match game={element} />
         ))}
       </div>
     </div>
