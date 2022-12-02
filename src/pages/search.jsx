@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import style from "../style/search.module.css";
+import VideoForm from "../components/videoForm";
 import SearchIcon from "@mui/icons-material/Search";
 import axios from "axios";
 
@@ -7,7 +8,6 @@ const Search = (props) => {
   const inputRef = useRef();
   const [videos, setVideos] = useState([]);
 
-  console.log(videos);
   const onClick = () => {
     handleSearch();
   };
@@ -28,6 +28,7 @@ const Search = (props) => {
         videoTitle: data,
       })
       .then((data) => {
+        console.log(data.data);
         setVideos(data.data);
       })
       .catch((err) => {
@@ -52,7 +53,13 @@ const Search = (props) => {
         </button>
       </div>
 
-      <div className={style.videosection}>videos</div>
+      <div className={style.videosection}>
+        {videos.map((video) => (
+          <div className={style.video}>
+            <VideoForm key={video.videoID} video={video} />
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

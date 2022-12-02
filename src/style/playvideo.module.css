@@ -34,11 +34,10 @@
 
 .top {
   display: flex;
-  /* justify-content: space-between; */
 }
 .title {
   font-size: 2em;
-  color: white;
+  color: rgb(195, 184, 183);
 }
 
 .info {
@@ -49,7 +48,7 @@
 }
 
 .date {
-  color: white;
+  color: rgb(195, 184, 183);
   font-size: 1em;
 }
 .btn {
@@ -64,7 +63,7 @@
   display: flex;
   align-items: center;
   background-color: #282828;
-  color: white;
+  color: rgb(195, 184, 183);
   font-size: 1em;
   margin: 1em;
   padding-left: 0.5em;
@@ -86,7 +85,7 @@ button:hover {
 
 .input {
   background-color: black;
-  color: white;
+  color: rgb(195, 184, 183);
   border-top: none;
   border-left: none;
   border-right: none;

@@ -17,7 +17,7 @@ const Playvideo = ({ videoID }) => {
     comment: "hello",
   });
 
-  console.log(replys);
+  console.log(videoID);
   // 댓글 가져오기
   const getReplys = async () => {
     // await axios
@@ -25,12 +25,10 @@ const Playvideo = ({ videoID }) => {
     //   .then((data) => setComments(data))
     //   .catch((err) => console.log(err));
 
-    console.log("get reply");
     // 테스트
     await axios
       .get(`http://localhost:3001/reply/getVideoComment/1`)
       .then((data) => {
-        console.log(data.data);
         setReplys(data.data);
       })
       .catch((err) => console.log(err));
