@@ -6,6 +6,7 @@
   padding: 2rem;
   background-color: black;
   color: rgb(195, 184, 183);
+  cursor: pointer;
 }
 
 .logo {

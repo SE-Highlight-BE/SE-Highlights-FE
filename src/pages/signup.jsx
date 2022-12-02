@@ -2,56 +2,34 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import style from "../style/signup.module.css";
-
+import axios from "axios";
 const Signup = (props) => {
   const navigate = useNavigate();
-  const [userName, setUserName] = useState();
-  const [nickName, setNickName] = useState();
-  const [password, setPassword] = useState();
-  const [passwordCheck, setPasswordCheck] = useState();
+  const [inputs, setInputs] = useState({
+    userName: "",
+    userNickName: "",
+    userPwd: "",
+    userPwdCheck: "",
+  });
+  const data = inputs;
 
-  const onUserNameHandler = (event) => {
-    setUserName(event.target.value);
-  };
-  const onNickNameHandler = (event) => {
-    setNickName(event.target.value);
-  };
-
-  const onPasswordHandler = (event) => {
-    setPassword(event.target.value);
-  };
-
-  const onPasswordCheckHandler = (event) => {
-    setPasswordCheck(event.target.value);
+  const onChange = (e) => {
+    const { value, name } = e.target;
+    setInputs({
+      ...inputs,
+      [name]: value,
+    });
   };
 
-  const onSignupHandler = (event) => {
-    // 이메일이 중복되는지 확인 코드
-    // 아이디 생성 코드
-    if (password !== passwordCheck) {
-      alert("입력한 비밀번호가 일치하지 않습니다.");
-    } else {
-      console.log(userName);
-      console.log(nickName);
-      console.log(password);
-      axios
-        .post("http://localhost:3001/auth/signUp", {
-          userName: userName,
-          userNickName: nickName,
-          userPwd: password,
-          userPwdCheck: password,
-        })
-        .then((data) => {
-          alert(`${data.data.msg}`);
-          if (data.status === 201) {
-            navigate("/");
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-          alert("회원 가입 실패");
-        });
+  const onSignupHandler = (e) => {
+    if (data.userPwd !== data.userPwdCheck) {
+      alert("비밀번호 불일치");
+      return;
     }
+    axios
+      .post("http://localhost:3001/auth/signUp", inputs)
+      .then((res) => console.log(res))
+      .catch((e) => alert("회원가입 실패"));
   };
   const onCancleHandler = (event) => {
     navigate("/");
@@ -64,32 +42,41 @@ const Signup = (props) => {
           <span>Sports </span>
           <span className={style.titlenow}>now</span>
         </div>
+
         <input
           type="text"
           className={style.input}
-          placeholder="아이디"
-          onChange={onUserNameHandler}
+          placeholder="닉네임"
+          name="userNickName"
+          value={data.userNickName}
+          onChange={onChange}
           required
         />
         <input
           type="text"
           className={style.input}
-          placeholder="닉네임"
-          onChange={onNickNameHandler}
+          value={data.userName}
+          name="userName"
+          placeholder="아이디"
+          onChange={onChange}
           required
         />
         <input
           type="password"
           className={style.input}
           placeholder="비밀번호"
-          onChange={onPasswordHandler}
+          onChange={onChange}
+          value={data.userPwd}
+          name="userPwd"
           required
         />
         <input
           type="password"
           className={style.input}
           placeholder="비밀번호 확인"
-          onChange={onPasswordCheckHandler}
+          value={data.userPwdCheck}
+          name="userPwdCheck"
+          onChange={onChange}
           required
         />
         <div className={style.btn}>

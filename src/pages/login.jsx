@@ -1,51 +1,40 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import style from "../style/login.module.css";
 
 const Login = (props) => {
   const navigate = useNavigate();
-  const [userName, setUserName] = useState();
-  const [password, setPassword] = useState();
+  const [inputs, setInputs] = useState({
+    userName: "",
+    userPwd: "",
+  });
+  const data = inputs;
 
-  const onUserNameHandler = (event) => {
-    setUserName(event.target.value);
+  const onChange = (e) => {
+    const { value, name } = e.target;
+    setInputs({
+      ...inputs,
+      [name]: value,
+    });
   };
 
-  const onPasswordHandler = (event) => {
-    setPassword(event.target.value);
-  };
   const onSignupHandler = (event) => {
     navigate("/login/signup");
   };
 
   const onLoginhandler = () => {
-    console.log("login clicked!");
-    console.log(userName);
-    console.log(password);
     axios
-      .post(
-        "http://localhost:3001/auth/signIn",
-        {
-          userName: userName,
-          userPwd: password,
-        },
-        { withCredentials: true }
-      )
-      .then((data) => {
-        if (data.data.error) {
-          alert(`${data.data.error}`);
-        } else {
-          alert(`${data.data.msg}`);
-
-          // 로그인 성공 후 홈 화면으로
-          navigate("/homepage");
-        }
+      .post("http://localhost:3001/auth/signIn", inputs, {
+        withCredentials: true,
       })
-      .catch((err) => {
-        alert("로그인 실패");
-      });
+      .then((res) => {
+        alert(res.data.msg);
+        res.data.token && navigate("/homepage");
+      })
+      .catch((e) => alert("회원가입 실패"));
   };
+
   return (
     <div className={style.section}>
       <div className={style.login}>
@@ -56,15 +45,19 @@ const Login = (props) => {
         <input
           type="text"
           className={style.input}
+          value={data.userName}
           placeholder="아이디"
-          onChange={onUserNameHandler}
+          name="userName"
+          onChange={onChange}
           required
         />
         <input
           type="password"
           className={style.input}
           placeholder="비밀번호"
-          onChange={onPasswordHandler}
+          onChange={onChange}
+          value={data.userPwd}
+          name="userPwd"
           required
         />
         <div className={style.btn}>
