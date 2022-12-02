@@ -1,19 +1,18 @@
+import React, { useEffect, useState } from "react";
+import style from "../style/homepage.module.css";
 import axios from "axios";
-import React, { useState } from "react";
 import { Cookies } from "react-cookie";
-
-const Homepage = (props) => {
+const Homepage = () => {
   const [comment, setComment] = useState({
     videoID: 1,
-    comment: "abcd",
+    comment: "dqdw",
   });
   const cookies = new Cookies();
   return (
-    <div>
+    <div className={style.fill}>
+      <div>dwdwd</div>
       <button
         onClick={() => {
-          console.log("comment", comment);
-          console.log(cookies.get("userID"));
           axios
             .post("http://localhost:3001/reply/comment", comment, {
               headers: {
@@ -28,7 +27,9 @@ const Homepage = (props) => {
               console.log("error", e);
             });
         }}
-      />
+      >
+        버튼
+      </button>
     </div>
   );
 };

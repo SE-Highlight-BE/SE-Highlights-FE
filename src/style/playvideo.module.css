@@ -56,7 +56,7 @@
   display: flex;
 }
 
-button {
+.optionbtn {
   border: none;
   border-radius: 10px;
   width: 6em;
@@ -86,9 +86,21 @@ button:hover {
 
 .input {
   background-color: black;
+  color: white;
   border-top: none;
   border-left: none;
   border-right: none;
   width: 80%;
   height: 100%;
+  padding: 0;
+}
+.input:focus {
+  outline: none;
+}
+
+.inputbtn {
+  height: 100%;
+  background-color: black;
+  color: gray;
+  border: none;
 }

@@ -7,8 +7,7 @@ import Mypage from "./pages/mypage";
 import Schedule from "./pages/schedule/schedule";
 import Search from "./pages/search";
 import Signup from "./pages/signup";
-import cookies from "react-cookies";
-import Playvideo from "./pages/playvideo";
+import Playvideo from "./pages/playvideo/playvideo";
 
 function App() {
   return (

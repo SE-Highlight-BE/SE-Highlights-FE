@@ -1,0 +1,50 @@
+.section {
+  display: flex;
+  align-items: center;
+  /* border: solid;
+  border-right: none;
+  border-left: none;
+  border-top: none; */
+  color: white;
+  margin-top: 1em;
+  margin-left: 2em;
+}
+
+.user {
+  text-align: center;
+}
+
+.comment {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-left: 1em;
+  /* justify-content: center; */
+}
+
+.data {
+  font-size: 1.5em;
+}
+
+.delete {
+  margin-right: 1em;
+  background-color: black;
+  border: none;
+  border-radius: 20px;
+  color: white;
+}
+
+button:hover {
+  cursor: pointer;
+  background-color: black;
+}
+
+button:active {
+  box-shadow: 1px 1px 0 rgb(0, 0, 0, 0.5);
+  position: relative;
+  top: 2px;
+}
+.icon {
+  height: 1.5em;
+  width: 1.5em;
+}
