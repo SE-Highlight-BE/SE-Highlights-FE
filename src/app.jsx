@@ -11,6 +11,7 @@ import Playvideo from "./pages/playvideo/playvideo";
 import { useUser } from "./stores/user";
 import { Cookies } from "react-cookie";
 import { useEffect } from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   const { login, setLogin } = useUser();
