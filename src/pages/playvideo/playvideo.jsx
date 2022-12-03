@@ -17,7 +17,7 @@ const Playvideo = ({ videoID }) => {
     comment: "hello",
   });
 
-  console.log(replys);
+  console.log(videoID);
   // 댓글 가져오기
   const getReplys = async () => {
     // await axios
@@ -25,12 +25,10 @@ const Playvideo = ({ videoID }) => {
     //   .then((data) => setComments(data))
     //   .catch((err) => console.log(err));
 
-    console.log("get reply");
     // 테스트
     await axios
       .get(`http://localhost:3001/reply/getVideoComment/1`)
       .then((data) => {
-        console.log(data.data);
         setReplys(data.data);
       })
       .catch((err) => console.log(err));
@@ -108,9 +106,16 @@ const Playvideo = ({ videoID }) => {
   return (
     <div className={style.section}>
       <div className={style.detail}>
-        <video className={style.video} controls poster="aaa">
-          <source src="../../testvideo/video1" type="video/mp4" />
-        </video>
+        {/* <video className={style.video} controls poster="aaa">
+          <source src="https://drive.google.com/file/d/1Ipq1LfX7rq40sENh8yvUp2yp-xO8_I7x/view?usp=share_link" />
+        </video> */}
+        <div>
+          <iframe src="https://drive.google.com/file/d/1VofpJrf6nXl_VREW2cSNStAYoIuVqlyc/preview" />
+        </div>
+        {/* <Player
+          playInline
+          src="https://drive.google.com/file/d/1Ipq1LfX7rq40sENh8yvUp2yp-xO8_I7x/view?usp=share_link"
+        /> */}
         <a href="test.test">원본 영상</a>
         <div className={style.options}>
           <div className={style.title}>영상 제목</div>

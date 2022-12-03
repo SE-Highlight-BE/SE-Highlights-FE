@@ -6,19 +6,26 @@
 .card {
   width: 200px;
   height: 200px;
-  background-color: white;
+  background-color: wheat;
 }
 
 .textForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: rgb(195, 184, 183);
   margin-top: 10px;
 }
 .title {
   font-size: x-large;
 }
 .date {
+  font-size: 0.7em;
+  text-align: right;
   margin-top: 5px;
 }
 .recom {
+  font-size: 0.7em;
   text-align: right;
   margin-top: 5px;
 }

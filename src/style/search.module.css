@@ -47,3 +47,12 @@
 .input::placeholder {
   padding-left: 0.5em;
 }
+
+.videosection {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.video {
+  margin: 2em;
+}
