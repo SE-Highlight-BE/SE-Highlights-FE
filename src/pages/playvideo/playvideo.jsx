@@ -4,24 +4,16 @@ import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import Avatar from "@mui/material/Avatar";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import axios from "axios";
-import { Cookies } from "react-cookie";
 import Comment from "./comment";
-import { useVideo } from "../../stores/video";
 import VideoForm from "../../components/videoForm";
+import { useLocation } from "react-router-dom";
 
 axios.defaults.withCredentials = true;
 
 const Playvideo = () => {
-  const cookies = new Cookies();
-  //홈페이지에서 누른 비디오 아이디를 가져옴
-  const { videoID } = useVideo();
-
+  const { state } = useLocation();
   const inputRef = useRef();
   const [replys, setReplys] = useState([]);
-  const [comments, setComments] = useState({
-    videoID: 1,
-    comment: "hello",
-  });
   const [videos, setVideos] = useState([]);
 
   // video 가져오기
@@ -38,10 +30,10 @@ const Playvideo = () => {
 
   //단순히 콘솔에 출력을 위한 코드(확인하고 지우면됩니다.)
   useEffect(() => {
-    // console.log("영상 시청 페이지에 넘어온 비디오 ID : ", videoID);
+    console.log(state);
     getReplys();
     getVideos();
-  }, []);
+  }, [state]);
 
   // 댓글 가져오기
   const getReplys = async () => {
@@ -52,7 +44,7 @@ const Playvideo = () => {
 
     // 테스트
     await axios
-      .get(`http://localhost:3001/reply/getVideoComment/1`)
+      .get(`http://localhost:3001/reply/getVideoComment/${state}`)
       .then((data) => {
         setReplys(data.data);
       })
@@ -62,7 +54,7 @@ const Playvideo = () => {
   // 북마크
   const bookmarkHandler = (event) => {
     axios
-      .post(`http://localhost:3001/bookmark/1`)
+      .post(`http://localhost:3001/bookmark/${state}`)
       .then((data) => {
         alert(`${data.data.msg}`);
       })
@@ -73,19 +65,9 @@ const Playvideo = () => {
 
   // 추천
   const likeHandler = (event) => {
-    // axios
-    //   .post(`http://localhost:3001/likeVideo/${videoID}`)
-    //   .then((data) => {
-    //     console.log(data);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-
-    // 테스트
     console.log("like button clicked");
     axios
-      .post("http://localhost:3001/likeVideo/1")
+      .post(`http://localhost:3001/likeVideo/${state}`)
       .then((data) => {
         alert(`${data.data.msg}`);
       })
@@ -98,26 +80,21 @@ const Playvideo = () => {
   const onKeyDown = (event) => {
     if (event.key === "Enter") {
       const data = inputRef.current.value;
-      setComments({
-        videoID: 1,
-        comment: data,
-      });
-      addComment();
+      addComment(data);
     }
   };
   // 댓글 작성
   const onClick = (event) => {
     const data = inputRef.current.value;
-    setComments({
-      videoID: 1,
-      comment: data,
-    });
-    addComment();
+    addComment(data);
   };
 
-  const addComment = () => {
+  const addComment = (data) => {
     axios
-      .post(`http://localhost:3001/reply/comment`, comments)
+      .post(`http://localhost:3001/reply/comment`, {
+        videoID: state,
+        comment: data,
+      })
       .then((data) => {
         getReplys();
         console.log(data);
@@ -128,10 +105,6 @@ const Playvideo = () => {
     <div className={style.section}>
       <div className={style.detail}>
         <div>
-          {/* <iframe
-            allowfullscreen="true"
-            src="https://drive.google.com/file/d/1VofpJrf6nXl_VREW2cSNStAYoIuVqlyc/preview"
-          /> */}
           <iframe
             src="https://drive.google.com/file/d/1VofpJrf6nXl_VREW2cSNStAYoIuVqlyc/preview"
             width="100%"
@@ -149,7 +122,6 @@ const Playvideo = () => {
                 <AddCircleOutlineIcon />
                 <span>북마크</span>
               </button>
-
               <button className={style.optionbtn} onClick={likeHandler}>
                 <ThumbUpOffAltIcon />
                 <span>추천</span>
