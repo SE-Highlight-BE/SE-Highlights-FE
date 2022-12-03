@@ -56,6 +56,8 @@
 }
 
 .optionbtn {
+  display: flex;
+  justify-content: space-evenly;
   border: none;
   border-radius: 10px;
   width: 6em;

@@ -4,19 +4,22 @@ import Avatar from "@mui/material/Avatar";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import axios from "axios";
 
-const Comment = ({ data }) => {
-  const [deletebody, setDeleteBody] = useState({});
+const Comment = ({ data, getReplys }) => {
   const deleteHandler = (event) => {
-    console.log(data.id);
-    setDeleteBody({
-      commentID: data.id,
-    });
     axios
       .delete("http://localhost:3001/reply/comment", {
-        commentID: data.id,
+        data: {
+          commentID: data.id,
+        },
       })
       .then((data) => {
-        console.log(data);
+        console.log(data.data.msg);
+        if (data.data.msg) {
+          alert(data.data.msg);
+        } else {
+          alert(data.data.error);
+        }
+        getReplys();
       })
       .catch((err) => console.log(err));
   };

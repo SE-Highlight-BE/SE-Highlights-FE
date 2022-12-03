@@ -1,0 +1,59 @@
+.mypage {
+  display: flex;
+  background-color: black;
+  width: 100vw;
+  min-height: 88vh;
+  color: rgb(195, 184, 183);
+}
+.usersection {
+  width: 30%;
+  min-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.user {
+  text-align: center;
+}
+.name {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  font-size: 2.5em;
+}
+
+.options {
+  margin-top: 1em;
+  text-align: center;
+}
+
+.btn {
+  margin: 1.5em;
+  padding: 0.7em;
+  border: solid;
+  border-radius: 20px;
+  font-size: 1.2em;
+}
+
+.btn:hover {
+  color: yellow;
+  transform: scale(1.1);
+  transition-duration: 0.2s;
+}
+.datasection {
+  /* display: flex; */
+  /* justify-content: center; */
+  margin-top: 2em;
+  width: 70%;
+  min-height: 88vh;
+}
+
+.comment {
+  margin-top: 3em;
+  width: 70%;
+}
+
+.bookmark {
+  display: flex;
+  flex-wrap: wrap;
+}

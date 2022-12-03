@@ -25,7 +25,9 @@ const Search = (props) => {
     const data = inputRef.current.value;
     await axios
       .get("http://localhost:3001/search", {
-        videoTitle: data,
+        data: {
+          videoTitle: data,
+        },
       })
       .then((data) => {
         console.log(data.data);

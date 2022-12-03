@@ -15,6 +15,8 @@ const Login = (props) => {
   const { setLogin, login } = useUser();
   const onChange = (e) => {
     const { value, name } = e.target;
+    console.log(`value : ${value}`);
+    console.log(`name : ${name}`);
     setInputs({
       ...inputs,
       [name]: value,

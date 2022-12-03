@@ -5,15 +5,10 @@ import { useVideo } from "../stores/video";
 
 export default function VideoForm({ video }) {
   const navigate = useNavigate();
-  const { videoID, setVideo } = useVideo();
 
   const goToPlay = () => {
     console.log(`클릭된 videoID = ${video.videoID}`);
-
-    // clicked 된 videoID 넘겨주기
-    setVideo(video.videoID);
-    console.log(videoID);
-    navigate("/playvideo");
+    navigate("/playvideo", { state: video.videoID });
   };
 
   return (
