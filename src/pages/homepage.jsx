@@ -3,10 +3,10 @@ import style from "../style/homepage.module.css";
 import axios from "axios";
 import { Cookies } from "react-cookie";
 import VideoForm from "../components/videoForm";
+
 axios.defaults.withCredentials = true;
 
 const Homepage = () => {
-  const cookies = new Cookies();
   return (
     <div className={style.fill}>
       <div className={style.container}>

@@ -6,10 +6,15 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import axios from "axios";
 import { Cookies } from "react-cookie";
 import Comment from "./comment";
+import { useVideo } from "../stores/video";
+
 axios.defaults.withCredentials = true;
 
-const Playvideo = ({ videoID }) => {
+const Playvideo = () => {
   const cookies = new Cookies();
+  //홈페이지에서 누른 비디오 아이디를 가져옴
+  const { videoID } = useVideo();
+
   const inputRef = useRef();
   const [replys, setReplys] = useState([]);
   const [comments, setComments] = useState({
@@ -17,7 +22,11 @@ const Playvideo = ({ videoID }) => {
     comment: "hello",
   });
 
-  console.log(videoID);
+  //단순히 콘솔에 출력을 위한 코드(확인하고 지우면됩니다.)
+  useEffect(() => {
+    console.log("영상 시청 페이지에 넘어온 비디오 ID : ", videoID);
+  }, []);
+
   // 댓글 가져오기
   const getReplys = async () => {
     // await axios
@@ -110,7 +119,10 @@ const Playvideo = ({ videoID }) => {
           <source src="https://drive.google.com/file/d/1Ipq1LfX7rq40sENh8yvUp2yp-xO8_I7x/view?usp=share_link" />
         </video> */}
         <div>
-          <iframe src="https://drive.google.com/file/d/1VofpJrf6nXl_VREW2cSNStAYoIuVqlyc/preview" />
+          <iframe
+            allowfullscreen="true"
+            src="https://drive.google.com/file/d/1VofpJrf6nXl_VREW2cSNStAYoIuVqlyc/preview"
+          />
         </div>
         {/* <Player
           playInline
