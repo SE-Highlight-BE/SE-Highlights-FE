@@ -3,6 +3,7 @@
   min-height: 88vh;
   background-color: black;
   display: flex;
+  align-items: flex-start;
 }
 
 .detail {
@@ -10,9 +11,6 @@
   flex-direction: column;
   width: 70%;
   display: flex;
-  /* justify-content: flex-end; */
-  /* align-items: flex-start; */
-  /* background-color: blue; */
   padding: 1em;
   justify-content: center;
 }
