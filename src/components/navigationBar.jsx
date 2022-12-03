@@ -19,7 +19,12 @@ const NavigationBar = (props) => {
   };
   return (
     <div className={style.section}>
-      <div className={style.logo}>
+      <div
+        onClick={() => {
+          navigate("/homepage");
+        }}
+        className={style.logo}
+      >
         <span className={style.logo_front}>Sports </span>
         <span className={style.logo_back}>now</span>
       </div>

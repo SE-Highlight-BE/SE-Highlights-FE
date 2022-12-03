@@ -4,3 +4,11 @@
   padding-top: 2rem;
   padding-bottom: 2rem;
 }
+.column {
+  width: 10em;
+  text-align: center;
+}
+.dateForm {
+  display: flex;
+  flex-direction: column;
+}
