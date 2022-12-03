@@ -1,18 +1,16 @@
 .fill {
+  padding-top: 2em;
   background-color: black;
   width: 100%;
   height: 100vh;
-  color: white;
   overflow: auto;
-
-  /* padding: 50px; */
 }
 .container {
-  padding-top: 50px;
-  padding-left: 100px;
-  display: flex;
+  /* padding-top: 50px; */
+  /* padding-left: 100px; */
   width: 100%;
+  display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  gap: 50px 150px;
+  justify-content: center;
 }

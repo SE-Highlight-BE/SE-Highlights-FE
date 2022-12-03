@@ -6,7 +6,8 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import axios from "axios";
 import { Cookies } from "react-cookie";
 import Comment from "./comment";
-import { useVideo } from "../stores/video";
+import { useVideo } from "../../stores/video";
+import VideoForm from "../../components/videoForm";
 
 axios.defaults.withCredentials = true;
 
@@ -21,10 +22,25 @@ const Playvideo = () => {
     videoID: 1,
     comment: "hello",
   });
+  const [videos, setVideos] = useState([]);
+
+  // video 가져오기
+  const getVideos = async () => {
+    await axios
+      .get("http://localhost:3001/random")
+      .then((data) => {
+        setVideos(data.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   //단순히 콘솔에 출력을 위한 코드(확인하고 지우면됩니다.)
   useEffect(() => {
-    console.log("영상 시청 페이지에 넘어온 비디오 ID : ", videoID);
+    // console.log("영상 시청 페이지에 넘어온 비디오 ID : ", videoID);
+    getReplys();
+    getVideos();
   }, []);
 
   // 댓글 가져오기
@@ -42,10 +58,6 @@ const Playvideo = () => {
       })
       .catch((err) => console.log(err));
   };
-
-  useEffect(() => {
-    getReplys();
-  }, []);
 
   // 북마크
   const bookmarkHandler = (event) => {
@@ -115,19 +127,18 @@ const Playvideo = () => {
   return (
     <div className={style.section}>
       <div className={style.detail}>
-        {/* <video className={style.video} controls poster="aaa">
-          <source src="https://drive.google.com/file/d/1Ipq1LfX7rq40sENh8yvUp2yp-xO8_I7x/view?usp=share_link" />
-        </video> */}
         <div>
-          <iframe
+          {/* <iframe
             allowfullscreen="true"
             src="https://drive.google.com/file/d/1VofpJrf6nXl_VREW2cSNStAYoIuVqlyc/preview"
+          /> */}
+          <iframe
+            src="https://drive.google.com/file/d/1VofpJrf6nXl_VREW2cSNStAYoIuVqlyc/preview"
+            width="100%"
+            height="480"
+            allow="autoplay"
           />
         </div>
-        {/* <Player
-          playInline
-          src="https://drive.google.com/file/d/1Ipq1LfX7rq40sENh8yvUp2yp-xO8_I7x/view?usp=share_link"
-        /> */}
         <a href="test.test">원본 영상</a>
         <div className={style.options}>
           <div className={style.title}>영상 제목</div>
@@ -165,7 +176,11 @@ const Playvideo = () => {
           ))}
         </div>
       </div>
-      <div className={style.others}>asd</div>
+      <div className={style.others}>
+        {videos.map((video) => (
+          <VideoForm key={video.videoID} video={video} />
+        ))}
+      </div>
     </div>
   );
 };

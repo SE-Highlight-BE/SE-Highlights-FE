@@ -10,6 +10,8 @@
   flex-direction: column;
   width: 70%;
   display: flex;
+  /* justify-content: flex-end; */
+  /* align-items: flex-start; */
   /* background-color: blue; */
   padding: 1em;
   justify-content: center;
@@ -24,7 +26,7 @@
 
 .others {
   width: 30%;
-  background-color: red;
+  background-color: black;
 }
 
 .options {
@@ -100,6 +102,7 @@ button:hover {
 .inputbtn {
   height: 100%;
   background-color: black;
-  color: gray;
+  color: rgb(195, 184, 183);
+  border-radius: 20px;
   border: none;
 }

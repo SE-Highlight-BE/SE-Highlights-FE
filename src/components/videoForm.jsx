@@ -1,30 +1,31 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Playvideo from "../pages/playvideo/playvideo";
 import style from "../style/videoForm.module.css";
 import { useVideo } from "../stores/video";
 
-export default function VideoForm(onClickVideo) {
+export default function VideoForm({ video }) {
   const navigate = useNavigate();
   const { videoID, setVideo } = useVideo();
 
-  const goToPlay = (id) => {
-    setVideo(id);
+  const goToPlay = () => {
+    console.log(`클릭된 videoID = ${video.videoID}`);
+
+    // clicked 된 videoID 넘겨주기
+    setVideo(video.videoID);
+    console.log(videoID);
     navigate("/playvideo");
   };
 
-  //단순히 콘솔에 출력을 위한 코드(확인하고 지우면됩니다.)
-  useEffect(() => {
-    console.log("클릭한 동영상 ID : ", videoID);
-  }, [videoID]);
   return (
     <>
       <div className={style.cardForm} onClick={goToPlay}>
         <div className={style.card}></div>
         <div className={style.textForm}>
-          <div className={style.title}>대한민국 vs 가나</div>
-          <div className={style.date}>일시 : 2022-11-30</div>
-          <div className={style.recom}>추천 수 : 23</div>
+          <div className={style.title}>{video.videoTitle}</div>
+          <div className={style.date}>{video.videoDate}</div>
+          <div className={style.recom}>
+            추천 수 : {video.videoRecommendRate}
+          </div>
         </div>
       </div>
     </>

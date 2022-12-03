@@ -36,7 +36,7 @@
 
 button:hover {
   cursor: pointer;
-  background-color: black;
+  background-color: gray;
 }
 
 button:active {
