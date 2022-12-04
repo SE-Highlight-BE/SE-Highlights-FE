@@ -11,7 +11,7 @@ const Schedule = (props) => {
   const month = now.getMonth() + 1;
   const date = now.getDate();
   const day = now.getDay();
-  const lastDay = new Date(year, month, -1).getDate();
+  const lastDay = new Date(year, now.getMonth() - 1, -1).getDate() + 1;
   const [data, setData] = useState();
   const [toggle, setToggle] = useState();
   function getDayOfWeek(date) {
@@ -29,10 +29,12 @@ const Schedule = (props) => {
   };
   const addZero = (date) => (`${date}`.length === 1 ? `0${date}` : date);
   const dateList = useMemo(() => {
+    console.log("last", lastDay);
     const arr = Array.from({ length: lastDay }, (v, i) => i);
-    return arr.map((elem) => (
+    return arr.map((elem, index) => (
       <div
         className={style.dateForm}
+        key={index}
         onClick={() => {
           onGetDate(`${addZero(month)}-${addZero(elem + 1)}`);
           setToggle(elem);

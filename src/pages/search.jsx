@@ -5,30 +5,18 @@ import SearchIcon from "@mui/icons-material/Search";
 import axios from "axios";
 
 const Search = (props) => {
-  const inputRef = useRef();
   const [videos, setVideos] = useState([]);
+  const [text, setText] = useState("");
 
-  const onClick = () => {
-    handleSearch();
-  };
   const onKeyDown = (event) => {
     if (event.key === "Enter") {
-      handleSearch();
+      getVideos();
     }
   };
 
-  const handleSearch = () => {
-    getVideos();
-  };
-
   const getVideos = async () => {
-    const data = inputRef.current.value;
     await axios
-      .get("http://localhost:3001/search", {
-        data: {
-          videoTitle: data,
-        },
-      })
+      .get(`http://localhost:3001/search?videoTitle=${text}`)
       .then((data) => {
         console.log(data.data);
         setVideos(data.data);
@@ -38,23 +26,19 @@ const Search = (props) => {
       });
   };
 
-  useEffect(() => {
-    getVideos();
-  }, []);
   return (
     <div className={style.section}>
       <div className={style.searchbar}>
         <input
-          ref={inputRef}
+          onChange={(e) => setText(e.target.value)}
           className={style.input}
           placeholder="Search..."
           onKeyPress={onKeyDown}
         />
-        <button className={style.searchbtn} onClick={onClick}>
+        <button className={style.searchbtn} onClick={getVideos}>
           <SearchIcon fontSize="large" />
         </button>
       </div>
-
       <div className={style.videosection}>
         {videos.map((video) => (
           <div className={style.video}>

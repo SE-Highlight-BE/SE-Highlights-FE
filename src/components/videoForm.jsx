@@ -18,7 +18,7 @@ export default function VideoForm({ video }) {
             src={video.videoLink}
             width="100%"
             height="100%"
-            allow="autoplay"
+            // allow="autoplay"
           />
         </div>
         <div className={style.textForm}>

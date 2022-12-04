@@ -12,7 +12,8 @@
   border-top: none;
   padding: 1rem;
   overflow: auto;
-  gap: 3rem;
+  gap: 1rem;
+  cursor: pointer;
 }
 label {
   font-size: 1rem;

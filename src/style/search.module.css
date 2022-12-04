@@ -5,12 +5,14 @@
   background-color: black;
   color: rgb(195, 184, 183);
   min-height: 88vh;
+  justify-items: center;
 }
 
 .searchbar {
   margin-top: 2em;
   display: flex;
   align-items: center;
+  margin-bottom: 3em;
 }
 
 .searchbtn {
@@ -53,6 +55,8 @@
   flex-wrap: wrap;
   justify-content: center;
 }
-.video {
-  margin: 2em;
+
+.text {
+  display: flex;
+  justify-content: center;
 }

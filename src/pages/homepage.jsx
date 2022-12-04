@@ -25,7 +25,9 @@ const Homepage = () => {
     <div className={style.fill}>
       <div className={style.container}>
         {videos.map((video) => (
-          <VideoForm key={video.videoID} video={video} />
+          <>
+            <VideoForm key={video.videoID} video={video} />
+          </>
         ))}
       </div>
     </div>

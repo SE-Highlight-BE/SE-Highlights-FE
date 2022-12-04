@@ -4,7 +4,7 @@ import Avatar from "@mui/material/Avatar";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import axios from "axios";
 
-const Comment = ({ data, getReplys }) => {
+const Comment = ({ data, getReplys, searchMyComment }) => {
   const deleteHandler = (event) => {
     axios
       .delete("http://localhost:3001/reply/comment", {
@@ -16,6 +16,7 @@ const Comment = ({ data, getReplys }) => {
         console.log(data.data.msg);
         if (data.data.msg) {
           alert(data.data.msg);
+          searchMyComment();
         } else {
           alert(data.data.error);
         }

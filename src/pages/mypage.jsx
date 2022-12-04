@@ -115,7 +115,11 @@ const Mypage = (props) => {
       <div className={style.datasection}>
         <div className={style.comment}>
           {comments.map((comment) => (
-            <Comment key={comment.id} data={comment} />
+            <Comment
+              key={comment.id}
+              data={comment}
+              searchMyComment={searchMyComment}
+            />
           ))}
         </div>
 
