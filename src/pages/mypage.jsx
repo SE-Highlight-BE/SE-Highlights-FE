@@ -1,13 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import style from "../style/mypage.module.css";
 import Avatar from "@mui/material/Avatar";
 import axios from "axios";
 import Comment from "./playvideo/comment";
 import VideoForm from "../components/videoForm";
+import { useNavigate } from "react-router-dom";
 
 const Mypage = (props) => {
+  const [userName, setUserName] = useState("");
   const [comments, setComments] = useState([]);
   const [bookmark, setBookmark] = useState([]);
+  const navigate = useNavigate();
+
   const searchMyComment = () => {
     setBookmark([]);
     axios
@@ -21,16 +25,58 @@ const Mypage = (props) => {
       });
   };
   const searchMyBookmark = () => {
+    getMyBookmark();
+  };
+
+  const getMyBookmark = async () => {
     setComments([]);
-    axios
+    await axios
       .get("http://localhost:3001/bookmark/getList")
       .then((data) => {
+        setUserName(data.data.userName.userName);
         setBookmark(data.data.getBookmark);
       })
       .catch((err) => {
         console.log(err);
       });
   };
+
+  const signoutHandler = (event) => {
+    axios
+      .get("http://localhost:3001/auth/signOut")
+      .then((data) => {
+        alert(data.data.msg);
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const deleteAccountHandler = (event) => {
+    const password = prompt("비밀번호를 입력하세요.");
+    axios
+      .post("http://localhost:3001/auth/deleteAccount", {
+        userPwd: password,
+      })
+      .then((data) => {
+        console.log("회원탈퇴 성공");
+        console.log(data.data.error);
+        if (data.data.error !== undefined) {
+          alert(data.data.error);
+        } else {
+          alert(data.data.msg);
+          navigate("/");
+        }
+      })
+      .catch((err) => {
+        console.log("회원탈퇴 실패");
+        console.log(err);
+      });
+  };
+  useEffect(() => {
+    getMyBookmark();
+  }, []);
   return (
     <div className={style.mypage}>
       <div className={style.usersection}>
@@ -40,7 +86,7 @@ const Mypage = (props) => {
             className={style.avatar}
             src="/broken-image.jpg"
           />
-          <div className={style.name}>유저 이름</div>
+          <div className={style.name}>{userName}</div>
         </div>
         <div className={style.options}>
           <div className={style.btn} onClick={searchMyComment}>
@@ -48,6 +94,17 @@ const Mypage = (props) => {
           </div>
           <div className={style.btn} onClick={searchMyBookmark}>
             북마크한 동영상
+          </div>
+          <div className={style.userbtn}>
+            <span className={style.signout} onClick={signoutHandler}>
+              로그아웃
+            </span>
+            <span
+              className={style.deleteAccount}
+              onClick={deleteAccountHandler}
+            >
+              회원탈퇴
+            </span>
           </div>
         </div>
       </div>
