@@ -7,14 +7,20 @@ export default function VideoForm({ video }) {
   const navigate = useNavigate();
 
   const goToPlay = () => {
-    console.log(`클릭된 videoID = ${video.videoID}`);
     navigate("/playvideo", { state: video.videoID });
   };
 
   return (
     <>
       <div className={style.cardForm} onClick={goToPlay}>
-        <div className={style.card}></div>
+        <div className={style.card}>
+          <iframe
+            src={video.videoLink}
+            width="100%"
+            height="100%"
+            allow="autoplay"
+          />
+        </div>
         <div className={style.textForm}>
           <div className={style.title}>{video.videoTitle}</div>
           <div className={style.date}>{video.videoDate}</div>
