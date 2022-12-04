@@ -5,12 +5,14 @@ import axios from "axios";
 import Comment from "./playvideo/comment";
 import VideoForm from "../components/videoForm";
 import { useNavigate } from "react-router-dom";
+import cookie from "react-cookies";
 
 const Mypage = (props) => {
   const [userName, setUserName] = useState("");
   const [comments, setComments] = useState([]);
   const [bookmark, setBookmark] = useState([]);
   const navigate = useNavigate();
+  // const cookies = new Cookies();
 
   const searchMyComment = () => {
     setBookmark([]);
@@ -66,6 +68,7 @@ const Mypage = (props) => {
           alert(data.data.error);
         } else {
           alert(data.data.msg);
+          cookie.remove("userID");
           navigate("/");
         }
       })
@@ -77,6 +80,7 @@ const Mypage = (props) => {
   useEffect(() => {
     getMyBookmark();
   }, []);
+
   return (
     <div className={style.mypage}>
       <div className={style.usersection}>
