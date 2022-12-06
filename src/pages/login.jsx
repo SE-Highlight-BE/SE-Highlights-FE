@@ -42,7 +42,7 @@ const Login = (props) => {
         setLogin(true);
         res.data.token && navigate("/homepage");
       })
-      .catch((e) => alert("회원가입 실패"));
+      .catch((e) => alert("로그인 실패"));
   };
 
   return (
