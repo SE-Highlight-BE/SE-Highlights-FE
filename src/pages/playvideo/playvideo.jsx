@@ -14,14 +14,16 @@ const Playvideo = () => {
   const { state } = useLocation();
   const inputRef = useRef();
   const [replys, setReplys] = useState([]);
+  const [video, setVideo] = useState([]);
   const [videos, setVideos] = useState([]);
 
   // video 가져오기
   const getVideos = async () => {
     await axios
-      .get("http://localhost:3001/random")
+      .get(`http://localhost:3001/random?num=${4}`)
       .then((data) => {
-        setVideos(data.data.data);
+        console.log("data", data);
+        setVideos(data.data);
       })
       .catch((err) => {
         console.log(err);
@@ -30,20 +32,23 @@ const Playvideo = () => {
 
   //단순히 콘솔에 출력을 위한 코드(확인하고 지우면됩니다.)
   useEffect(() => {
-    console.log(state);
     getReplys();
     getVideos();
-  }, [state]);
-
+    getVideo();
+  }, []);
+  const getVideo = () => {
+    axios
+      .get(`http://localhost:3001/one?videoID=${state}`)
+      .then((data) => {
+        console.log("video 하나", data);
+        setVideo(data.data);
+      })
+      .catch((err) => console.log(err));
+  };
   // 댓글 가져오기
-  const getReplys = async () => {
-    // await axios
-    //   .get(`http://localhost:3001/reply/getVideoComment/${videoID}`)
-    //   .then((data) => setComments(data))
-    //   .catch((err) => console.log(err));
 
-    // 테스트
-    await axios
+  const getReplys = () => {
+    axios
       .get(`http://localhost:3001/reply/getVideoComment/${state}`)
       .then((data) => {
         setReplys(data.data);
@@ -64,8 +69,7 @@ const Playvideo = () => {
   };
 
   // 추천
-  const likeHandler = (event) => {
-    console.log("like button clicked");
+  const onLike = (event) => {
     axios
       .post(`http://localhost:3001/likeVideo/${state}`)
       .then((data) => {
@@ -75,7 +79,10 @@ const Playvideo = () => {
         console.log(err);
       });
   };
-
+  const likeHandler = () => {
+    onLike();
+    setTimeout(() => getVideo(), 2000);
+  };
   // 댓글 엔터 입력 시
   const onKeyDown = (event) => {
     if (event.key === "Enter") {
@@ -85,7 +92,9 @@ const Playvideo = () => {
   };
   // 댓글 작성
   const onClick = (event) => {
+    if (inputRef.current.value === "") return;
     const data = inputRef.current.value;
+    inputRef.current.value = "";
     addComment(data);
   };
 
@@ -107,16 +116,21 @@ const Playvideo = () => {
         <div>
           <iframe
             src="https://drive.google.com/file/d/1VofpJrf6nXl_VREW2cSNStAYoIuVqlyc/preview"
-            width="100%"
+            width="95%"
             height="480"
             allow="autoplay"
           />
         </div>
-        <a href="test.test">원본 영상</a>
+        {/* <a href="test.test">원본 영상</a> */}
         <div className={style.options}>
-          <div className={style.title}>영상 제목</div>
+          <div className={style.titleContainer}>
+            <div className={style.title}>{video.videoTitle}</div>
+            <div className={style.recom}>
+              추천 수 : {video.videoRecommendRate}
+            </div>
+          </div>
           <div className={style.info}>
-            <span className={style.date}>2022.12.02</span>
+            <span className={style.date}>{video.videoDate}</span>
             <div className={style.btn}>
               <button className={style.optionbtn} onClick={bookmarkHandler}>
                 <AddCircleOutlineIcon />

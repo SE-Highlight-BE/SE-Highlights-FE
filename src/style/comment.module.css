@@ -25,6 +25,12 @@
 .data {
   font-size: 1.3em;
 }
+.date {
+  width: 150px;
+  text-align: right;
+  margin-right: 1em;
+  /* background-color: antiquewhite; */
+}
 
 .delete {
   margin-right: 1em;
@@ -32,6 +38,7 @@
   border: none;
   border-radius: 20px;
   color: rgb(195, 184, 183);
+  margin-left: 2em;
 }
 
 button:hover {

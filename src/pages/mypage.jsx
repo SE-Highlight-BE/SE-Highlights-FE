@@ -5,15 +5,15 @@ import axios from "axios";
 import Comment from "./playvideo/comment";
 import VideoForm from "../components/videoForm";
 import { useNavigate } from "react-router-dom";
-import cookie from "react-cookies";
+import { Cookies } from "react-cookie";
 import { useUser } from "../stores/user";
 const Mypage = (props) => {
   const [userName, setUserName] = useState("");
   const [comments, setComments] = useState([]);
   const [bookmark, setBookmark] = useState([]);
   const navigate = useNavigate();
-  const { login, setLogin } = useUser();
-  // const cookies = new Cookies();
+  const { setLogin } = useUser();
+  const cookies = new Cookies();
 
   const searchMyComment = () => {
     setBookmark([]);
@@ -50,6 +50,7 @@ const Mypage = (props) => {
         .get("http://localhost:3001/auth/signOut")
         .then(() => {
           setLogin(false);
+          cookies.remove("userID");
           navigate("/");
         })
         .catch((err) => {
@@ -67,12 +68,11 @@ const Mypage = (props) => {
       .then((data) => {
         setLogin(false);
         console.log("회원탈퇴 성공");
-        console.log(data.data.error);
         if (data.data.error !== undefined) {
           alert(data.data.error);
         } else {
           alert(data.data.msg);
-          cookie.remove("userID");
+          cookies.remove("userID");
           navigate("/");
         }
       })
