@@ -8,7 +8,7 @@ import axios from "axios";
 import Comment from "./comment";
 import VideoForm from "../../components/videoForm";
 import { useLocation } from "react-router-dom";
-
+import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 axios.defaults.withCredentials = true;
 
 const Playvideo = () => {
@@ -40,7 +40,7 @@ const Playvideo = () => {
     axios
       .get(`http://localhost:3001/one?videoID=${state}`)
       .then((data) => {
-        setRecommend(data.data.recommend);
+        recommend === null && setRecommend(data.data.recommend);
         setVideo(data.data);
       })
       .catch((err) => console.log(err));
@@ -138,7 +138,7 @@ const Playvideo = () => {
             </span>
             <div className={style.btn}>
               <button className={style.optionbtn} onClick={bookmarkHandler}>
-                <AddCircleOutlineIcon />
+                <BookmarkBorderIcon />
                 <span>북마크</span>
               </button>
               <button className={style.optionbtn} onClick={likeHandler}>
