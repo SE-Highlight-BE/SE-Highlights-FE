@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import style from "../../style/playvideo.module.css";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
+import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import Avatar from "@mui/material/Avatar";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import axios from "axios";
@@ -16,13 +17,12 @@ const Playvideo = () => {
   const [replys, setReplys] = useState([]);
   const [video, setVideo] = useState([]);
   const [videos, setVideos] = useState([]);
-
+  const [recommend, setRecommend] = useState(null);
   // video 가져오기
   const getVideos = async () => {
     await axios
       .get(`http://localhost:3001/random?num=${4}`)
       .then((data) => {
-        console.log("data", data);
         setVideos(data.data);
       })
       .catch((err) => {
@@ -40,7 +40,7 @@ const Playvideo = () => {
     axios
       .get(`http://localhost:3001/one?videoID=${state}`)
       .then((data) => {
-        console.log("video 하나", data);
+        setRecommend(data.data.recommend);
         setVideo(data.data);
       })
       .catch((err) => console.log(err));
@@ -73,6 +73,7 @@ const Playvideo = () => {
     axios
       .post(`http://localhost:3001/likeVideo/${state}`)
       .then((data) => {
+        setRecommend(data.data.state);
         alert(`${data.data.msg}`);
       })
       .catch((err) => {
@@ -106,10 +107,10 @@ const Playvideo = () => {
       })
       .then((data) => {
         getReplys();
-        console.log(data);
       })
       .catch((err) => console.log(err));
   };
+
   return (
     <div className={style.section}>
       <div className={style.detail}>
@@ -124,20 +125,24 @@ const Playvideo = () => {
         {/* <a href="test.test">원본 영상</a> */}
         <div className={style.options}>
           <div className={style.titleContainer}>
-            <div className={style.title}>{video.videoTitle}</div>
+            {video.data && (
+              <div className={style.title}>{video.data.videoTitle}</div>
+            )}
             <div className={style.recom}>
-              추천 수 : {video.videoRecommendRate}
+              추천 수 : {video.data && video.data.videoRecommendRate}
             </div>
           </div>
           <div className={style.info}>
-            <span className={style.date}>{video.videoDate}</span>
+            <span className={style.date}>
+              {video.data && video.data.videoDate}
+            </span>
             <div className={style.btn}>
               <button className={style.optionbtn} onClick={bookmarkHandler}>
                 <AddCircleOutlineIcon />
                 <span>북마크</span>
               </button>
               <button className={style.optionbtn} onClick={likeHandler}>
-                <ThumbUpOffAltIcon />
+                {recommend ? <ThumbUpAltIcon /> : <ThumbUpOffAltIcon />}
                 <span>추천</span>
               </button>
             </div>
@@ -163,9 +168,10 @@ const Playvideo = () => {
         </div>
       </div>
       <div className={style.others}>
-        {videos.map((video) => (
-          <VideoForm key={video.videoID} video={video} />
-        ))}
+        {videos &&
+          videos.map((video) => (
+            <VideoForm key={video.videoID} video={video} />
+          ))}
       </div>
     </div>
   );
