@@ -27,7 +27,9 @@ const Signup = (props) => {
     }
     axios
       .post("http://localhost:3001/auth/signUp", inputs)
-      .then((res) => console.log(res))
+      .then((res) => {
+        alert(res.data.msg);
+      })
       .catch((e) => alert("회원가입 실패"));
   };
   const onCancleHandler = (event) => {

@@ -114,7 +114,7 @@ const Playvideo = () => {
         </div>
         <a href="test.test">원본 영상</a>
         <div className={style.options}>
-          <div className={style.title}>영상 제목</div>
+          <div className={style.title}>한국 VS 가나</div>
           <div className={style.info}>
             <span className={style.date}>2022.12.02</span>
             <div className={style.btn}>
