@@ -47,9 +47,10 @@ export default function VideoForm({ video }) {
           <div className={style.title}>{video.videoTitle}</div>
           <div className={style.subTextForm}>
             {/* <div> */}
-            <button onClick={bookmarkHandler}>
+
+            <div onClick={bookmarkHandler} className={style.bookmark}>
               {mark ? <BookmarkIcon /> : <BookmarkBorderIcon />}
-            </button>
+            </div>
             {/* </div> */}
             <div>
               <p className={style.date}>{video.videoDate}</p>
