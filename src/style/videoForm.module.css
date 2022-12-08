@@ -5,8 +5,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  z-index: 10;
 }
+
 .cardForm:hover {
   transform: scale(1.1);
   transition-duration: 0.2s;
@@ -15,9 +15,11 @@
   width: 300px;
   height: 170px;
   margin-bottom: 1em;
-  z-index: 5;
+  /* pointer-events: none; */
 }
-
+.card iframe {
+  pointer-events: none;
+}
 .textForm {
   width: 100%;
   display: flex;
@@ -29,6 +31,12 @@
 }
 .title {
   font-size: x-large;
+}
+.subTextForm {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 .date {
   font-size: 0.9em;
