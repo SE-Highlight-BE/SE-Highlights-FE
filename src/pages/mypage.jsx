@@ -5,14 +5,15 @@ import axios from "axios";
 import Comment from "./playvideo/comment";
 import VideoForm from "../components/videoForm";
 import { useNavigate } from "react-router-dom";
-import cookie from "react-cookies";
-
+import { Cookies } from "react-cookie";
+import { useUser } from "../stores/user";
 const Mypage = (props) => {
   const [userName, setUserName] = useState("");
   const [comments, setComments] = useState([]);
   const [bookmark, setBookmark] = useState([]);
   const navigate = useNavigate();
-  // const cookies = new Cookies();
+  const { setLogin } = useUser();
+  const cookies = new Cookies();
 
   const searchMyComment = () => {
     setBookmark([]);
@@ -23,7 +24,7 @@ const Mypage = (props) => {
         setComments(data.data.comments);
       })
       .catch((err) => {
-        console.log(err);
+        alert("내 댓글 가져오기 실패");
       });
   };
   const searchMyBookmark = () => {
@@ -35,24 +36,27 @@ const Mypage = (props) => {
     await axios
       .get("http://localhost:3001/bookmark/getList")
       .then((data) => {
-        setUserName(data.data.userName.userName);
+        setUserName(data.data.userNickName.userNickName);
         setBookmark(data.data.getBookmark);
       })
       .catch((err) => {
-        console.log(err);
+        alert("내 북마크 리스트 가져오기 실패");
       });
   };
 
   const signoutHandler = (event) => {
-    axios
-      .get("http://localhost:3001/auth/signOut")
-      .then((data) => {
-        alert(data.data.msg);
-        navigate("/");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (window.confirm("로그아웃 하시겠습니까?")) {
+      axios
+        .get("http://localhost:3001/auth/signOut")
+        .then(() => {
+          setLogin(false);
+          cookies.remove("userID");
+          navigate("/");
+        })
+        .catch((err) => {
+          alert("로그아웃 실패");
+        });
+    }
   };
 
   const deleteAccountHandler = (event) => {
@@ -62,13 +66,13 @@ const Mypage = (props) => {
         userPwd: password,
       })
       .then((data) => {
+        setLogin(false);
         console.log("회원탈퇴 성공");
-        console.log(data.data.error);
         if (data.data.error !== undefined) {
           alert(data.data.error);
         } else {
           alert(data.data.msg);
-          cookie.remove("userID");
+          cookies.remove("userID");
           navigate("/");
         }
       })
@@ -93,11 +97,23 @@ const Mypage = (props) => {
           <div className={style.name}>{userName}</div>
         </div>
         <div className={style.options}>
-          <div className={style.btn} onClick={searchMyComment}>
-            내 댓글
-          </div>
-          <div className={style.btn} onClick={searchMyBookmark}>
-            북마크한 동영상
+          <div className={style.btnContainer}>
+            <div
+              className={`${style.btn} ${
+                bookmark.length !== 0 && style.activeBtn
+              }`}
+              onClick={searchMyBookmark}
+            >
+              내 북마크
+            </div>
+            <div
+              className={`${style.btn} ${
+                comments.length !== 0 && style.activeBtn
+              }`}
+              onClick={searchMyComment}
+            >
+              내 댓글
+            </div>
           </div>
           <div className={style.userbtn}>
             <span className={style.signout} onClick={signoutHandler}>
@@ -115,7 +131,11 @@ const Mypage = (props) => {
       <div className={style.datasection}>
         <div className={style.comment}>
           {comments.map((comment) => (
-            <Comment key={comment.id} data={comment} />
+            <Comment
+              key={comment.id}
+              data={comment}
+              searchMyComment={searchMyComment}
+            />
           ))}
         </div>
 

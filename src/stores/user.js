@@ -2,8 +2,13 @@ import create from "zustand";
 
 export const useUser = create((set) => ({
   login: false,
-  setLogin: () =>
-    set((login) => ({
+  userID: "",
+  setLogin: (login) =>
+    set((state) => ({
       login: login,
+    })),
+  setUserID: (id) =>
+    set(() => ({
+      userID: id,
     })),
 }));

@@ -5,29 +5,40 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: rgb(25, 25, 25);
+  border-radius: 5%;
 }
-.cardForm:hover {
+
+.card:hover {
   transform: scale(1.1);
   transition-duration: 0.2s;
 }
 .card {
   width: 300px;
   height: 170px;
-  background-color: wheat;
   margin-bottom: 1em;
+  /* pointer-events: none; */
 }
-
+.card iframe {
+  pointer-events: none;
+}
 .textForm {
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: rgb(195, 184, 183);
   margin-bottom: 10px;
 }
 .title {
   font-size: x-large;
+}
+.subTextForm {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-top: 0.5rem;
 }
 .date {
   font-size: 0.9em;
@@ -35,8 +46,13 @@
   align-self: flex-end;
   margin-right: 15px;
 }
+.bookmark {
+  cursor: pointer;
+  padding-left: 1rem;
+  /* width: 5rem; */
+}
 .recom {
-  font-size: 0.8em;
+  font-size: 1em;
   margin-top: 5px;
   align-self: flex-end;
   margin-right: 15px;

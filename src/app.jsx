@@ -11,12 +11,13 @@ import Playvideo from "./pages/playvideo/playvideo";
 import { useUser } from "./stores/user";
 import { Cookies } from "react-cookie";
 import { useEffect } from "react";
-
+import jwt_decode from "jwt-decode";
 function App() {
-  const { login, setLogin } = useUser();
+  const { login, setLogin, setUserID } = useUser();
   const cookies = new Cookies();
   useEffect(() => {
     if (cookies.get("userID")) {
+      setUserID(jwt_decode(cookies.get("userID")).userID);
       setLogin(true);
     }
   }, []);

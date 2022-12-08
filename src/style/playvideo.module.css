@@ -1,3 +1,6 @@
+* {
+  color: rgb(195, 184, 183);
+}
 .section {
   width: 100%;
   min-height: 88vh;
@@ -13,6 +16,7 @@
   display: flex;
   padding: 1em;
   justify-content: center;
+  margin-left: 2rem;
 }
 
 .video {
@@ -25,13 +29,26 @@
 .others {
   width: 30%;
   background-color: black;
+  border-left: 1px dashed gray;
+  padding: 2rem 0;
+  margin-top: 1rem;
+  overflow-y: scroll;
 }
 
 .options {
   width: 100%;
   padding: 1em;
 }
-
+.titleContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.recom {
+  font-size: 1em;
+  padding-right: 4rem;
+}
 .top {
   display: flex;
 }
@@ -45,6 +62,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding-right: 3rem;
 }
 
 .date {
@@ -71,18 +89,15 @@
   padding-left: 0.5em;
 }
 
-button:hover {
-  cursor: pointer;
-  background-color: gray;
-}
-
 .comment {
   display: flex;
-  justify-content: center;
+  align-items: center;
+  margin-bottom: 2em;
 }
 
 .avatar {
-  margin-right: 2em;
+  margin-left: 1.5em;
+  margin-right: 1em;
 }
 
 .input {
@@ -93,7 +108,8 @@ button:hover {
   border-right: none;
   width: 80%;
   height: 100%;
-  padding: 0;
+  font-size: large;
+  /* padding-bottom: 3rem; */
 }
 .input:focus {
   outline: none;
@@ -105,4 +121,11 @@ button:hover {
   color: rgb(195, 184, 183);
   border-radius: 20px;
   border: none;
+  font-size: large;
+  margin-left: 1rem;
+  padding: 5px;
+}
+.inputbtn:hover {
+  cursor: pointer;
+  background-color: gray;
 }
