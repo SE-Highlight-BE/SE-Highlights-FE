@@ -9,7 +9,10 @@
 .user {
   text-align: center;
 }
-
+.avatar {
+  background-color: rgb(20, 20, 20);
+  color: black;
+}
 .comment {
   width: 100%;
   display: flex;

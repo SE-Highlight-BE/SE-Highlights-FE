@@ -58,7 +58,8 @@ const Playvideo = () => {
     axios
       .get(`http://localhost:3001/reply/getVideoComment/${state}`)
       .then((data) => {
-        setReplys(data.data);
+        console.log(data.data.sort((a, b) => b.id - a.id));
+        setReplys(data.data.sort((a, b) => b.id - a.id));
       })
       .catch((err) => console.log(err));
   };
@@ -165,7 +166,7 @@ const Playvideo = () => {
             ref={inputRef}
             className={style.input}
             onKeyPress={onKeyDown}
-            placeholder="  Comment.."
+            placeholder="Comment.."
           />
           <button className={style.inputbtn} onClick={onClick}>
             댓글 작성
