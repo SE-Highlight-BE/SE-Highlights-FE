@@ -9,6 +9,7 @@ import Comment from "./comment";
 import VideoForm from "../../components/videoForm";
 import { useLocation } from "react-router-dom";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
+import BookmarkIcon from "@mui/icons-material/Bookmark";
 axios.defaults.withCredentials = true;
 
 const Playvideo = () => {
@@ -17,10 +18,11 @@ const Playvideo = () => {
   const [replys, setReplys] = useState([]);
   const [video, setVideo] = useState([]);
   const [videos, setVideos] = useState([]);
+  const [mark, setMark] = useState(null);
   const [recommend, setRecommend] = useState(null);
   // video 가져오기
-  const getVideos = async () => {
-    await axios
+  const getVideos = () => {
+    axios
       .get(`http://localhost:3001/random?num=${4}`)
       .then((data) => {
         setVideos(data.data);
@@ -29,12 +31,17 @@ const Playvideo = () => {
         console.log(err);
       });
   };
-
-  //단순히 콘솔에 출력을 위한 코드(확인하고 지우면됩니다.)
+  const getStateBookmark = async () => {
+    const response = await axios.get(
+      `http://localhost:3001/bookmark/stateBookmark?videoID=${state}`
+    );
+    response.data.stateMark === null ? setMark(false) : setMark(true);
+  };
   useEffect(() => {
     getReplys();
     getVideos();
     getVideo();
+    getStateBookmark();
   }, []);
   const getVideo = () => {
     axios
@@ -62,6 +69,7 @@ const Playvideo = () => {
       .post(`http://localhost:3001/bookmark/${state}`)
       .then((data) => {
         alert(`${data.data.msg}`);
+        mark === true ? setMark(false) : setMark(true);
       })
       .catch((err) => {
         console.log(err);
@@ -110,7 +118,9 @@ const Playvideo = () => {
       })
       .catch((err) => console.log(err));
   };
-
+  useEffect(() => {
+    console.log("북마크 state ", mark);
+  }, [mark]);
   return (
     <div className={style.section}>
       <div className={style.detail}>
@@ -138,7 +148,7 @@ const Playvideo = () => {
             </span>
             <div className={style.btn}>
               <button className={style.optionbtn} onClick={bookmarkHandler}>
-                <BookmarkBorderIcon />
+                {mark ? <BookmarkIcon /> : <BookmarkBorderIcon />}
                 <span>북마크</span>
               </button>
               <button className={style.optionbtn} onClick={likeHandler}>
