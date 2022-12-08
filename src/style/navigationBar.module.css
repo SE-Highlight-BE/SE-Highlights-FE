@@ -26,3 +26,6 @@
   transform: scale(1.1);
   transition-duration: 0.2s;
 }
+.active {
+  color: yellow;
+}

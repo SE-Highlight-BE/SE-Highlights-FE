@@ -58,7 +58,6 @@ const Playvideo = () => {
     axios
       .get(`http://localhost:3001/reply/getVideoComment/${state}`)
       .then((data) => {
-        console.log(data.data.sort((a, b) => b.id - a.id));
         setReplys(data.data.sort((a, b) => b.id - a.id));
       })
       .catch((err) => console.log(err));
