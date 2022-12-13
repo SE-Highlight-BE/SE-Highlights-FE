@@ -35,14 +35,14 @@ const Comment = ({ data, getReplys, searchMyComment }) => {
         <div className={style.id}>{data.userNickName}</div>
         <div className={style.data}>{data.comment}</div>
       </div>
-      <div className={style.date}>
-        {dayjs(data.created_at).format("YYYY.MM.DD HH:mm:ss")}
-      </div>
       {userID === data.userID && (
         <button className={style.delete} onClick={deleteHandler}>
           <DeleteOutlineIcon className={style.icon} />
         </button>
       )}
+      <div className={style.date}>
+        {dayjs(data.created_at).format("YYYY.MM.DD HH:mm:ss")}
+      </div>
     </div>
   );
 };

@@ -29,6 +29,10 @@ const Signup = (props) => {
       .post("http://localhost:3001/auth/signUp", inputs)
       .then((res) => {
         alert(res.data.msg);
+        // 회원가입 성공시 로그인 화면으로 이동
+        if (res.status == 201) {
+          navigate("/");
+        }
       })
       .catch((e) => alert("회원가입 실패"));
   };
@@ -49,6 +53,7 @@ const Signup = (props) => {
           className={style.input}
           placeholder="닉네임"
           name="userNickName"
+          pattern="[a-zA-Z0-9]+"
           value={data.userNickName}
           onChange={onChange}
           required
@@ -58,6 +63,7 @@ const Signup = (props) => {
           className={style.input}
           value={data.userName}
           name="userName"
+          pattern="[a-zA-Z0-9]+"
           placeholder="아이디"
           onChange={onChange}
           required
