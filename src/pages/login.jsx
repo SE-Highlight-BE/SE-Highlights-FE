@@ -15,8 +15,6 @@ const Login = (props) => {
   const { setLogin, login } = useUser();
   const onChange = (e) => {
     const { value, name } = e.target;
-    console.log(`value : ${value}`);
-    console.log(`name : ${name}`);
     setInputs({
       ...inputs,
       [name]: value,
@@ -38,11 +36,19 @@ const Login = (props) => {
         withCredentials: true,
       })
       .then((res) => {
-        alert(res.data.msg);
-        setLogin(true);
-        res.data.token && navigate("/homepage");
+        // 로그인 실패
+        if (typeof res.data.msg == "undefined") {
+          alert(res.data.error);
+        } else {
+          alert(res.data.msg);
+          setLogin(true);
+          res.data.token && navigate("/homepage");
+        }
       })
-      .catch((e) => alert("로그인 실패"));
+      .catch((e) => {
+        console.log("e : ", e);
+        alert("로그인 실패");
+      });
   };
 
   return (

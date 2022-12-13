@@ -7,6 +7,7 @@ import VideoForm from "../components/videoForm";
 import { useNavigate } from "react-router-dom";
 import { Cookies } from "react-cookie";
 import { useUser } from "../stores/user";
+import { grey } from "@mui/material/colors";
 const Mypage = (props) => {
   const [userName, setUserName] = useState("");
   const [comments, setComments] = useState([]);
@@ -66,11 +67,11 @@ const Mypage = (props) => {
         userPwd: password,
       })
       .then((data) => {
-        setLogin(false);
-        console.log("회원탈퇴 성공");
+        console.log("data : ", data);
         if (data.data.error !== undefined) {
           alert(data.data.error);
         } else {
+          setLogin(false);
           alert(data.data.msg);
           cookies.remove("userID");
           navigate("/");
@@ -89,8 +90,9 @@ const Mypage = (props) => {
     <div className={style.mypage}>
       <div className={style.usersection}>
         <div className={style.user}>
+          {/* <Avatar /> */}
           <Avatar
-            sx={{ width: 150, height: 150 }}
+            sx={{ width: 150, height: 150, bgcolor: grey[900] }}
             className={style.avatar}
             src="/broken-image.jpg"
           />

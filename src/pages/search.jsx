@@ -16,13 +16,20 @@ const Search = (props) => {
 
   const getVideos = async () => {
     await axios
-      .get(`http://localhost:3001/search?videoTitle=${text}`)
+      .get(`http://localhost:3001/search`, {
+        params: {
+          videoTitle: text,
+        },
+      })
       .then((data) => {
-        console.log(data.data);
-        setVideos(data.data);
+        if (typeof data.data.message == "undefined") {
+          setVideos(data.data);
+        } else {
+          alert(`"${data.data.keyword}"  ${data.data.message}`);
+        }
       })
       .catch((err) => {
-        console.log(err);
+        alert("검색 결과 없음");
       });
   };
 
